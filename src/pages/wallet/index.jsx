@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import mineBlockRepository from '../../services/blocks/mineBlock';
 import createWalletRepository from '../../services/wallet/createWallet';
+import getBalance from '../../services/wallet/getBalance';
 
 export default function WalletPage() {
   const [walletKeys, setWalletKeys] = useState({});
+  const [pendingTransactions, setPendingTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
 
   const handleCreateWallet = async () => {
@@ -15,6 +18,15 @@ export default function WalletPage() {
         privateKey,
         publicKey,
       });
+    } catch (error) {}
+  };
+
+  const handleMineBlock = async () => {
+    try {
+      await mineBlockRepository(walletKeys.publicKey);
+      setPendingTransactions([]);
+      const axiosRes = await getBalance(walletKeys.publicKey);
+      setBalance(axiosRes.data.balance);
     } catch (error) {}
   };
 
@@ -88,7 +100,7 @@ export default function WalletPage() {
           </button>
         </div>
       </form>
-      {/* Peding transactions */}
+      {/* Peding transactions & mining*/}
       <hr />
       <h2>Pending transactions</h2>
       <div>
@@ -103,18 +115,24 @@ export default function WalletPage() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>20</td>
-              <td>125512320</td>
-            </tr>
+            {pendingTransactions.map((tx) => (
+              <tr>
+                <th scope="row">{tx.hash}</th>
+                <td>{tx.fromAddress}</td>
+                <td>{tx.toAddress}</td>
+                <td>{tx.amount}</td>
+                <td>{tx.timestamp}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
         <div className="col-md-2">
-          <button type="button" className="btn btn-primary">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleMineBlock}
+          >
             Mine block
           </button>
         </div>
