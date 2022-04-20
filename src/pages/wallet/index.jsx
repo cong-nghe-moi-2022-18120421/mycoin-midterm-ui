@@ -12,6 +12,7 @@ export default function WalletPage({ keys, onKeysChange }) {
 
   const [receiverAddress, setReceiverAddress] = useState('');
   const [sendAmount, setSendAmount] = useState(0);
+  const [isMining, setIsMining] = useState(false);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -58,12 +59,16 @@ export default function WalletPage({ keys, onKeysChange }) {
   };
 
   const handleMineBlock = async () => {
+    setIsMining(true);
     try {
       await mineBlockRepository(walletKeys.publicKey);
       setPendingTransactions([]);
       const axiosRes = await getBalance(walletKeys.publicKey);
       setBalance(axiosRes.data.balance);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsMining(false);
+    }
   };
 
   const handleSendCoin = async () => {
@@ -193,8 +198,17 @@ export default function WalletPage({ keys, onKeysChange }) {
             type="button"
             className="btn btn-primary"
             onClick={handleMineBlock}
+            disabled={isMining}
           >
-            Mine block
+            {isMining && (
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                style={{ marginRight: 2 }}
+              ></span>
+            )}
+            Mine
           </button>
         </div>
       </div>
