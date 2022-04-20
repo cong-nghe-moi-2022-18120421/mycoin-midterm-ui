@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import getAllBlocksRepository from '../../services/blocks/getAll';
 
 export default function BlocksPage() {
-  const blocks = [
+  const [blocks, setBlocks] = useState([]);
+
+  useEffect(() => {
+    const fetchBlocks = async () => {
+      try {
+        const axiosRes = await getAllBlocksRepository();
+        setBlocks(axiosRes.data);
+      } catch (error) {}
+    };
+
+    fetchBlocks();
+  }, []);
+
+  const blocks1 = [
     {
       index: 0,
       timestamp: 1650208118,
