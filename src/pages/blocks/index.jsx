@@ -10,7 +10,7 @@ export default function BlocksPage() {
     const fetchBlocks = async () => {
       try {
         const axiosRes = await getAllBlocksRepository();
-        setBlocks(axiosRes.data);
+        setBlocks(axiosRes.data.reverse());
       } catch (error) {}
     };
 
@@ -157,6 +157,8 @@ export default function BlocksPage() {
 
   return (
     <div className="container-fluid mt-2">
+      <h3>Blocks</h3>
+      <hr />
       <div className="card">
         <div className="card-body">
           <div>
