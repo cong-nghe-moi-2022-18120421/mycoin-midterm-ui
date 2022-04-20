@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import mineBlockRepository from '../../services/blocks/mineBlock';
+import getPendingTransactionsRepository from '../../services/transactions/getPendingTransactions';
 import createWalletRepository from '../../services/wallet/createWallet';
 import getBalance from '../../services/wallet/getBalance';
 
@@ -7,6 +8,17 @@ export default function WalletPage() {
   const [walletKeys, setWalletKeys] = useState({});
   const [pendingTransactions, setPendingTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    const fetchPendingTransactions = async () => {
+      try {
+        const axiosRes = await getPendingTransactionsRepository();
+        setPendingTransactions(axiosRes.data);
+      } catch (error) {}
+    };
+
+    fetchPendingTransactions();
+  }, []);
 
   const handleCreateWallet = async () => {
     try {
