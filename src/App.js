@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import BlocksPage from './pages/blocks';
+import BlockPage from './pages/block';
 import WalletPage from './pages/wallet';
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
             />
           }
         />
-        <Route path="/blocks" element={<BlocksPage />} />
+        <Route path="blocks" element={<BlocksPage />} />
+        <Route path="blocks/:index" element={<BlockPage />} />
       </Routes>
     </BrowserRouter>
   );
