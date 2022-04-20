@@ -11,8 +11,8 @@ export default function Header() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/explorer">
-            Explorer
+          <Link className="nav-link" to="/blocks">
+            Blocks
           </Link>
         </li>
       </ul>

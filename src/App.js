@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
+import BlocksPage from './pages/blocks';
 import WalletPage from './pages/wallet';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
             />
           }
         />
-        <Route path="/explorer" element={<p>Hi</p>} />
+        <Route path="/blocks" element={<BlocksPage />} />
       </Routes>
     </BrowserRouter>
   );
