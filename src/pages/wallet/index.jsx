@@ -5,7 +5,7 @@ import sendCoinRepository from '../../services/transactions/sendCoin';
 import createWalletRepository from '../../services/wallet/createWallet';
 import getBalance from '../../services/wallet/getBalance';
 
-export default function WalletPage() {
+export default function WalletPage({ keys, onKeysChange }) {
   const [walletKeys, setWalletKeys] = useState({});
   const [pendingTransactions, setPendingTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
@@ -13,6 +13,16 @@ export default function WalletPage() {
   const [receiverAddress, setReceiverAddress] = useState('');
   const [sendAmount, setSendAmount] = useState(0);
 
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const axiosRes = await getBalance(walletKeys?.publicKey);
+        setBalance(axiosRes.data.balance);
+      } catch (error) {}
+    };
+
+    fetchBalance();
+  }, [walletKeys?.publicKey]);
   useEffect(() => {
     const fetchPendingTransactions = async () => {
       try {
@@ -24,12 +34,22 @@ export default function WalletPage() {
     fetchPendingTransactions();
   }, []);
 
+  useEffect(() => {
+    setWalletKeys(keys);
+  }, [keys]);
+
   const handleCreateWallet = async () => {
     try {
       const axiosRes = await createWalletRepository();
       const { key, privateKey, publicKey } = axiosRes.data;
 
       setWalletKeys({
+        key,
+        privateKey,
+        publicKey,
+      });
+
+      onKeysChange?.({
         key,
         privateKey,
         publicKey,
@@ -56,6 +76,8 @@ export default function WalletPage() {
       });
       const axiosRes = await getPendingTransactionsRepository();
       setPendingTransactions(axiosRes.data);
+      setReceiverAddress('');
+      setSendAmount(0);
     } catch (error) {}
   };
 
