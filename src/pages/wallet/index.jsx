@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import mineBlockRepository from '../../services/blocks/mineBlock';
 import getPendingTransactionsRepository from '../../services/transactions/getPendingTransactions';
+import sendCoinRepository from '../../services/transactions/sendCoin';
 import createWalletRepository from '../../services/wallet/createWallet';
 import getBalance from '../../services/wallet/getBalance';
 
@@ -8,6 +9,9 @@ export default function WalletPage() {
   const [walletKeys, setWalletKeys] = useState({});
   const [pendingTransactions, setPendingTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
+
+  const [receiverAddress, setReceiverAddress] = useState('');
+  const [sendAmount, setSendAmount] = useState(0);
 
   useEffect(() => {
     const fetchPendingTransactions = async () => {
@@ -39,6 +43,19 @@ export default function WalletPage() {
       setPendingTransactions([]);
       const axiosRes = await getBalance(walletKeys.publicKey);
       setBalance(axiosRes.data.balance);
+    } catch (error) {}
+  };
+
+  const handleSendCoin = async () => {
+    try {
+      await sendCoinRepository({
+        privateKey: walletKeys.privateKey,
+        publicKey: walletKeys.publicKey,
+        receiverAddress,
+        sendAmount,
+      });
+      const axiosRes = await getPendingTransactionsRepository();
+      setPendingTransactions(axiosRes.data);
     } catch (error) {}
   };
 
@@ -92,6 +109,8 @@ export default function WalletPage() {
             placeholder="04c0a458f53a032bea76d7002746..."
             className="form-control"
             id="receiver-address"
+            value={receiverAddress}
+            onChange={(e) => setReceiverAddress(e.target.value)}
           />
         </div>
         <div className="col-md-2">
@@ -103,11 +122,17 @@ export default function WalletPage() {
             min={0}
             className="form-control"
             id="coin-amount"
+            value={sendAmount}
+            onChange={(e) => setSendAmount(e.target.value)}
           />
         </div>
         <div className="col-md-4"></div>
         <div className="col-md-2">
-          <button type="button" className="btn btn-primary">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleSendCoin}
+          >
             Send
           </button>
         </div>
@@ -128,12 +153,14 @@ export default function WalletPage() {
           </thead>
           <tbody>
             {pendingTransactions.map((tx) => (
-              <tr>
-                <th scope="row">{tx.hash}</th>
-                <td>{tx.fromAddress}</td>
-                <td>{tx.toAddress}</td>
-                <td>{tx.amount}</td>
-                <td>{tx.timestamp}</td>
+              <tr key={tx.hash}>
+                <th className="break-word-all" scope="row">
+                  {tx.hash}
+                </th>
+                <td className="break-word-all">{tx.fromAddress}</td>
+                <td className="break-word-all">{tx.toAddress}</td>
+                <td className="break-word-all">{tx.amount}</td>
+                <td className="break-word-all">{tx.timestamp}</td>
               </tr>
             ))}
           </tbody>
