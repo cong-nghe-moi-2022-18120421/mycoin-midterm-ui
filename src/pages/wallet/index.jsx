@@ -17,7 +17,12 @@ export default function WalletPage() {
   };
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{
+        marginBottom: 100,
+      }}
+    >
       <h1>My Coin</h1>
       {/* Wallet information */}
       <hr />
@@ -76,6 +81,37 @@ export default function WalletPage() {
           </button>
         </div>
       </form>
+      {/* Peding transactions */}
+      <hr />
+      <h2>Pending transactions</h2>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">TxHash</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>20</td>
+              <td>125512320</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary">
+            Mine block
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
