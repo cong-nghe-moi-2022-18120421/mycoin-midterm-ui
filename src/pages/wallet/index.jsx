@@ -89,21 +89,20 @@ export default function WalletPage({ keys, onKeysChange }) {
 
   return (
     <div
-      className="container"
+      className="container-fluid mt-2"
       style={{
         marginBottom: 100,
       }}
     >
-      <h1>My Coin</h1>
       {/* Wallet information */}
+      <h3>Wallet</h3>
       <hr />
-      <h2>Wallet</h2>
       <div>
         {Object.keys(walletKeys).length > 0 ? (
           <div>
             <div>
               <h3>Your public key: </h3>
-              <p>
+              <p className="break-word-all">
                 <Link to={`/address/${walletKeys?.publicKey}`}>
                   {walletKeys?.publicKey}
                 </Link>
