@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import getAllTransactionsRepository from '../../services/transactions/getAll';
 
 export default function TransactionsPage() {
-  // const [blocks, setBlocks] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchBlocks = async () => {
-  //     try {
-  //       const axiosRes = await getAllBlocksRepository();
-  //       setBlocks(axiosRes.data);
-  //     } catch (error) {}
-  //   };
+  useEffect(() => {
+    const fetchBlocks = async () => {
+      try {
+        const axiosRes = await getAllTransactionsRepository();
+        setTransactions(axiosRes.data);
+      } catch (error) {}
+    };
 
-  //   fetchBlocks();
-  // }, []);
+    fetchBlocks();
+  }, []);
 
-  const transactions = [
+  const transactions1 = [
     {
       fromAddress: null,
       toAddress:
