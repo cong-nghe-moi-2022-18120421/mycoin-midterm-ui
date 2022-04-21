@@ -182,7 +182,7 @@ export default function BlocksPage() {
                         {moment(block.timestamp * 1000).fromNow()}
                       </td>
                       <td className="break-word-all">
-                        <Link to={`/blocks/${block.index}/transactions`}>
+                        <Link to={`/transactions?block=${block.index}`}>
                           {block.transactions.length}
                         </Link>
                       </td>

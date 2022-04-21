@@ -79,7 +79,7 @@ export default function BlockPage() {
               <div className="col-3">{attributes[2]}</div>
               <div className="col">
                 <span>
-                  <Link to="transactions">
+                  <Link to={`/transactions?block=${block?.index}`}>
                     <button type="button" className="btn btn-primary btn-sm">
                       {block?.transactions?.length} transactions
                     </button>
