@@ -1,5 +1,10 @@
 import rootApi from '../root';
 
-const getAllTransactionsRepository = () => rootApi.get('/transactions');
+const getAllTransactionsRepository = (blockIndex) =>
+  rootApi.get('/transactions', {
+    params: {
+      blockIndex,
+    },
+  });
 
 export default getAllTransactionsRepository;

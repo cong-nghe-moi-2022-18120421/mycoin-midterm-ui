@@ -1,46 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 import getAllTransactionsRepository from '../../services/transactions/getAll';
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState([]);
+  const [searchParams] = useSearchParams();
+  const blockIndex = searchParams.get('block');
 
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
-        const axiosRes = await getAllTransactionsRepository();
+        const axiosRes = await getAllTransactionsRepository(blockIndex);
         setTransactions(axiosRes.data);
       } catch (error) {}
     };
 
     fetchBlocks();
-  }, []);
+  }, [blockIndex]);
 
-  const transactions1 = [
-    {
-      fromAddress: null,
-      toAddress:
-        '0443cea4cec4c4e977db14cb43c51c225cc3ecfa6b7ec7059ca16b907905a602485246573b24464605c2aa5230340b008b9d16de629a71403f0a8531493b0924ad',
-      amount: 10,
-      timestamp: 1650525726762,
-      hash: '81b450f27c5bd669e05460fef607c46c2800550f70c9e59101c8df9594af6280',
-      block: 1,
-    },
-    {
-      fromAddress: null,
-      toAddress:
-        '0443cea4cec4c4e977db14cb43c51c225cc3ecfa6b7ec7059ca16b907905a602485246573b24464605c2aa5230340b008b9d16de629a71403f0a8531493b0924ad',
-      amount: 10,
-      timestamp: 1650525727268,
-      hash: '7102f8abd8c0dd6ca2d9a8da359e54e9594d302e33f930932db11bd3223ca7c0',
-      block: 2,
-    },
-  ];
+  // const transactions1 = [
+  //   {
+  //     fromAddress: null,
+  //     toAddress:
+  //       '0443cea4cec4c4e977db14cb43c51c225cc3ecfa6b7ec7059ca16b907905a602485246573b24464605c2aa5230340b008b9d16de629a71403f0a8531493b0924ad',
+  //     amount: 10,
+  //     timestamp: 1650525726762,
+  //     hash: '81b450f27c5bd669e05460fef607c46c2800550f70c9e59101c8df9594af6280',
+  //     block: 1,
+  //   },
+  //   {
+  //     fromAddress: null,
+  //     toAddress:
+  //       '0443cea4cec4c4e977db14cb43c51c225cc3ecfa6b7ec7059ca16b907905a602485246573b24464605c2aa5230340b008b9d16de629a71403f0a8531493b0924ad',
+  //     amount: 10,
+  //     timestamp: 1650525727268,
+  //     hash: '7102f8abd8c0dd6ca2d9a8da359e54e9594d302e33f930932db11bd3223ca7c0',
+  //     block: 2,
+  //   },
+  // ];
 
   return (
     <div className="container-fluid mt-2">
       <h3>Transactions</h3>
+      {blockIndex && <h2 className="text-info">Block: #{blockIndex}</h2>}
       <hr />
       <div className="card">
         <div className="card-body">
