@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import mineBlockRepository from '../../services/blocks/mineBlock';
 import getPendingTransactionsRepository from '../../services/transactions/getPendingTransactions';
 import sendCoinRepository from '../../services/transactions/sendCoin';
@@ -102,7 +103,11 @@ export default function WalletPage({ keys, onKeysChange }) {
           <div>
             <div>
               <h3>Your public key: </h3>
-              <p>{walletKeys?.publicKey}</p>
+              <p>
+                <Link to={`/address/${walletKeys?.publicKey}`}>
+                  {walletKeys?.publicKey}
+                </Link>
+              </p>
             </div>
             <div>
               <h3>Your private key: </h3>
