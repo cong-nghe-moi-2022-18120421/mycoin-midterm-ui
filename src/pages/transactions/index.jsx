@@ -69,9 +69,7 @@ export default function TransactionsPage() {
                       <th className="break-word-all">
                         <Link to={`/blocks/${txn.block}`}>{txn.block}</Link>
                       </th>
-                      <td className="break-word-all">
-                        {moment(txn.timestamp).fromNow()}
-                      </td>
+                      <td>{moment(txn.timestamp).fromNow()}</td>
                       <td
                         className="break-word-all"
                         style={{

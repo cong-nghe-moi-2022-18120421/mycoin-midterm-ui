@@ -178,9 +178,7 @@ export default function BlocksPage() {
                       <th className="break-word-all" scope="row">
                         <Link to={`${block.index}`}>{block.index}</Link>
                       </th>
-                      <td className="break-word-all">
-                        {moment(block.timestamp * 1000).fromNow()}
-                      </td>
+                      <td>{moment(block.timestamp * 1000).fromNow()}</td>
                       <td className="break-word-all">
                         <Link to={`/transactions?block=${block.index}`}>
                           {block.transactions.length}
