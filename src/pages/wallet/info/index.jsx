@@ -21,31 +21,31 @@ export default function WalletInfoPage() {
     fetchWalletInfo();
   }, [address]);
 
-  const walletInformation1 = {
-    balance: 25,
-    transactions: [
-      {
-        fromAddress: null,
-        toAddress:
-          '048f686074a5c23c2800cd26da820a8cb3acd34ca5156f0fb8003c2e6d6150552aaaa63ea7907f4783eae4c49b9d4d7c6d5d548f365ea2d12d36b01dc56d3a2134',
-        amount: 10,
-        timestamp: 1650529699050,
-        hash: 'df5bede53ce2b8a5a769abb4eeaaff54709c63343f7482b6d6fcbf548fc7cae3',
-        status: 'success',
-        block: 1,
-      },
-      {
-        fromAddress: null,
-        toAddress:
-          '048f686074a5c23c2800cd26da820a8cb3acd34ca5156f0fb8003c2e6d6150552aaaa63ea7907f4783eae4c49b9d4d7c6d5d548f365ea2d12d36b01dc56d3a2134',
-        amount: 10,
-        timestamp: 1650529699050,
-        hash: 'df6bede53ce2b8a5a769abb4eeaaff54709c63343f7482b6d6fcbf548fc7cae3',
-        status: 'success',
-        block: 1,
-      },
-    ],
-  };
+  // const walletInformation1 = {
+  //   balance: 25,
+  //   transactions: [
+  //     {
+  //       fromAddress: null,
+  //       toAddress:
+  //         '048f686074a5c23c2800cd26da820a8cb3acd34ca5156f0fb8003c2e6d6150552aaaa63ea7907f4783eae4c49b9d4d7c6d5d548f365ea2d12d36b01dc56d3a2134',
+  //       amount: 10,
+  //       timestamp: 1650529699050,
+  //       hash: 'df5bede53ce2b8a5a769abb4eeaaff54709c63343f7482b6d6fcbf548fc7cae3',
+  //       status: 'success',
+  //       block: 1,
+  //     },
+  //     {
+  //       fromAddress: null,
+  //       toAddress:
+  //         '048f686074a5c23c2800cd26da820a8cb3acd34ca5156f0fb8003c2e6d6150552aaaa63ea7907f4783eae4c49b9d4d7c6d5d548f365ea2d12d36b01dc56d3a2134',
+  //       amount: 10,
+  //       timestamp: 1650529699050,
+  //       hash: 'df6bede53ce2b8a5a769abb4eeaaff54709c63343f7482b6d6fcbf548fc7cae3',
+  //       status: 'success',
+  //       block: 1,
+  //     },
+  //   ],
+  // };
 
   return (
     <div>
