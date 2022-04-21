@@ -15,6 +15,11 @@ export default function Header() {
             Blocks
           </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/transactions">
+            Transactions
+          </Link>
+        </li>
       </ul>
     </div>
   );
